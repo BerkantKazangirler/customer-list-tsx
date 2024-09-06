@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { FiHome } from "react-icons/fi";
 import { GoPeople } from "react-icons/go";
 import { IoTimeOutline } from "react-icons/io5";
@@ -15,11 +15,13 @@ function SideBar() {
     <>
       {sideBarStyle && (
         <div>
-          <div className="bg-neutral-900 h-screen text-white px-12 py-8 hidden md:flex flex-col gap-5">
+          <div className="bg-neutral-900 h-screen text-button font-semibold lg:px-12 md:px-5 lg:w-72 md:w-52 py-8 hidden md:flex flex-col gap-5">
             <div className="flex flex-row justify-between w-full">
-              <span className="font-bold text-4xl font-mono">Brand.</span>
+              <span className="font-bold text-4xl font-mono text-neutral-white">
+                Brand.
+              </span>
               <button
-                className="bg-neutral-200 p-4 rounded-xl h-max left-16 relative z-20"
+                className="p-4 rounded-xl h-max lg:left-16 md:left-12 relative z-20 bg-neutral-white hidden md:flex"
                 onClick={() => setSideBarStyle((t) => !t)}
               >
                 <RxArrowLeft className="text-black" />
@@ -29,39 +31,51 @@ function SideBar() {
             <div className="flex flex-row w-full mt-8 p-4">
               <FiHome className="self-center" />
 
-              <span className="uppercase ml-3">Dashboard</span>
+              <span className="uppercase ml-3 lg:text-base md:text-sm">
+                Dashboard
+              </span>
             </div>
             <div className="flex flex-row w-full p-4 rounded-xl bg-neutral-800">
               <GoPeople className="self-center" />
 
-              <span className="uppercase ml-3">Custommers</span>
+              <span className="uppercase ml-3 lg:text-base md:text-sm">
+                Custommers
+              </span>
             </div>
             <div className="flex flex-row w-full p-4">
               <IoTimeOutline className="self-center" />
 
-              <span className="uppercase ml-3">Analytics</span>
+              <span className="uppercase ml-3 lg:text-base md:text-sm">
+                Analytics
+              </span>
             </div>
-            <span className="uppercase text-sm text-neutral-700 opacity-70 font-mono">
+            <span className="uppercase mt-7 text-sm text-neutral-700 font-mono">
               Settings
             </span>
             <div className="flex flex-row w-full p-4">
               <PiEnvelopeSimple className="self-center" />
 
-              <span className="uppercase ml-3">Messages</span>
+              <span className="uppercase ml-3 lg:text-base md:text-sm">
+                Messages
+              </span>
             </div>
             <div className="flex flex-row w-full p-4">
               <VscSettings className="self-center" />
 
-              <span className="uppercase ml-3">Setting</span>
+              <span className="uppercase ml-3 lg:text-base md:text-sm">
+                Setting
+              </span>
             </div>
             <div className="flex flex-row w-full p-4">
               <IoIosHelpCircleOutline className="self-center" />
 
-              <span className="uppercase ml-3">Help Centre</span>
+              <span className="uppercase ml-3 lg:text-base md:text-sm">
+                Help Centre
+              </span>
             </div>
           </div>
 
-          <div className="bg-neutral-900 h-screen w-40 text-white px-12 py-8 flex md:hidden flex-col justify-between gap-5">
+          <div className="bg-neutral-900 h-screen w-20 text-white px-4 py-2 flex md:hidden flex-col justify-between gap-5">
             <div>
               <div className="flex flex-row justify-between w-full">
                 <span className="font-bold text-4xl font-mono">B.</span>
@@ -89,23 +103,20 @@ function SideBar() {
 
             <div className="flex flex-col gap-5">
               <div className="bg-neutral-200 p-4 rounded-xl w-fit mx-auto">
-                <FaRegBell className="text-black" />
+                <FaRegBell className="text-black w-4" />
               </div>
               <div className="bg-neutral-200 p-4 rounded-xl w-fit mx-auto">
-                <PiEnvelopeSimple className="text-black" />
+                <PiEnvelopeSimple className="text-black w-4" />
               </div>
-              <div className="bg-neutral-200 p-2 rounded-xl h-max flex-row gap-2">
+              <div className="bg-neutral-200 p-2 rounded-xl h-max gap-2 text-center flex flex-col">
                 <img
                   src={"./public/user.png"}
                   alt="User İmage"
                   className="h-5 rounded mx-auto"
                 />
-                <span className="text-black font-semibold text-xs">
+                <span className="text-black font-semibold text-[10px]">
                   Derek Alvarado
                 </span>
-                <button>
-                  <RxCaretDown />
-                </button>
               </div>
             </div>
           </div>
@@ -116,7 +127,7 @@ function SideBar() {
           <div className="flex flex-row justify-between w-full">
             <span className="font-bold text-4xl font-mono">B.</span>
             <button
-              className="bg-neutral-200 p-4 rounded-xl h-max left-12 relative z-20"
+              className="p-4 rounded-xl h-max left-12 relative z-20 bg-neutral-white hidden md:flex"
               onClick={() => setSideBarStyle((t) => !t)}
             >
               <RxArrowRight className="text-black" />
