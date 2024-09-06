@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 function Buttons() {
   return (
-    <div className="flex flex-row justify-end relative right-5 py-8 w-full">
+    <div className="flex flex-row md:justify-end justify-center relative md:right-5 right-0 py-8 w-full">
       <div className="flex flex-row gap-5">
-        <div className="bg-neutral-200 p-4 rounded-xl h-max">
+        <div className="bg-neutral-200 p-4 rounded-xl h-max md:flex hidden">
           <svg
             width="24"
             height="24"
@@ -20,7 +20,7 @@ function Buttons() {
             />
           </svg>
         </div>
-        <div className="bg-neutral-200 p-4 rounded-xl h-max">
+        <div className="bg-neutral-200 p-4 rounded-xl h-max md:flex hidden">
           <svg
             width="24"
             height="24"
@@ -37,13 +37,15 @@ function Buttons() {
             />
           </svg>
         </div>
-        <div className="bg-neutral-200 p-4 rounded-xl h-max flex flex-row gap-2">
+        <div className="bg-neutral-200 p-4 rounded-xl h-max flex-row gap-2 md:flex hidden">
           <img
             src={"./public/user.png"}
             alt="User İmage"
             className="h-6 rounded"
           />
-          <span className="text-black font-semibold">Derek Alvarado</span>
+          <span className="text-black font-semibold md:text-lg text-sm">
+            Derek Alvarado
+          </span>
           <button className="ml-3">
             <svg
               width="8"
