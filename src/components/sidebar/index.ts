@@ -1,1 +1,1 @@
-export { default as SideBar } from './bar';
+export { default as Sidebar } from './sidebar';

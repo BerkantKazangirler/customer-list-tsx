@@ -1,3 +1,3 @@
-export { SideBar as SideBar } from "./sidebar";
-export { Buttons as Buttons } from "./buttons";
+export { Sidebar as Sidebar } from "./sidebar";
+export { Button as Button } from "./button";
 export { CList as Clist } from "./customerlist";

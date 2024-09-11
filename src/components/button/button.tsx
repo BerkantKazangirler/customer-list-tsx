@@ -3,8 +3,8 @@ import { FaRegBell } from "react-icons/fa";
 import { RxCaretDown } from "react-icons/rx";
 function Buttons() {
   return (
-    <div className="flex flex-row md:justify-end justify-center pr-10 relative md:right-5 right-0 py-8 w-full">
-      <div className="flex flex-row gap-5">
+    <div className="flex flex-row md:justify-end justify-center pl-10 relative md:right-5 right-0 py-8 w-full">
+      <div className="flex flex-row gap-3">
         <div className="bg-neutral-white border text-button-inverted border-neutral-200 p-4 rounded-xl h-max md:flex hidden">
           <FaRegBell />
         </div>
@@ -20,7 +20,7 @@ function Buttons() {
           <span className="text-normal font-semibold text-base">
             Derek Alvarado
           </span>
-          <button className="ml-3">
+          <button>
             <RxCaretDown className="text-disabled" />
           </button>
         </div>
