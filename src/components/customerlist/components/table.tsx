@@ -54,14 +54,14 @@ function SidebarElements() {
     <>
       <table
         id="tabId"
-        className="flex-col bg-neutral-white p-8 mt-10 flex rounded"
+        className="flex-col bg-neutral-white p-8 mt-10 flex rounded w-fit 2xl:mx-auto"
       >
         <tr className="flex flex-row text-secondary">
           <td className="border-r w-16 border-b pb-2 hidden sm:flex">
             <span className="lg:pr-10 md:pr-5 lg:pl-5 md:pl-2">#</span>
           </td>
           <td className="border-r flex flex-row justify-between lg:w-80 w-72 border-b pb-2">
-            <span className="xl:w-64 md:w-40 lg:w-52 flex pr-10 pl-7">
+            <span className="flex pr-10 pl-7">
               Full Name
             </span>
             <div className="flex flex-row gap-3 my-auto">
@@ -79,14 +79,14 @@ function SidebarElements() {
               <CiFilter className="my-auto mr-5" />
             </button>
           </td>
-          <td className="border-r flex-row justify-between border-b pb-2 lg:w-80 w-60 hidden lg:flex">
-            <span className="px-10 xl:w-80 lg:w-60 flex">E-Mail</span>
+          <td className="border-r flex-row justify-between border-b pb-2 lg:w-72 w-52 hidden xl:flex">
+            <span className="px-10 flex">E-Mail</span>
             <button>
               <IoFilterOutline className="my-auto mr-5" />
             </button>
           </td>
-          <td className="border-r flex-row justify-between border-b pb-2 w-80 hidden lg:flex">
-            <span className="px-10 2xl:w-80 xl:w-72 flex">Date of Birth</span>
+          <td className="border-r flex-row justify-between border-b pb-2 w-80 hidden 2xl:flex">
+            <span className="px-10 flex">Date of Birth</span>
             <div className="flex flex-row gap-3 my-auto">
               <button>
                 <IoFilterOutline />
@@ -108,13 +108,13 @@ function SidebarElements() {
             <td className="border-r w-60 h-16 border-b hidden md:flex">
               <span className="my-auto indent-7">{apiseries.genre}</span>
             </td>
-            <td className="border-r lg:w-80 w-60 h-16 border-b hidden lg:flex">
+            <td className="border-r lg:w-72 w-52 h-16 border-b hidden xl:flex">
               <span className="my-auto indent-7">{apiseries.rating}</span>
             </td>
-            <td className="border-r w-80 h-16 border-b hidden lg:flex">
+            <td className="border-r w-80 h-16 border-b hidden 2xl:flex">
               <span className="my-auto indent-7">{apiseries.title}</span>
             </td>
-            <td className="flex-row w-fit gap-2 border-t pl-2 py-2 hidden xl:flex">
+            <td className="flex-row w-fit gap-2 border-t pl-2 py-2 hidden 2xl:flex">
               <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
                 <GoArrowUpRight />
               </button>
