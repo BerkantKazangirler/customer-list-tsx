@@ -10,8 +10,7 @@ function Sidebar() {
   return (
     <>
       {
-        /*sideBarStyle && (*/
-        <div className="fixed h-full">
+        <div className="h-screen fixed">
           <div
             className={cn(
               "bg-neutral-900 h-full text-button font-semibold flex flex-col gap-5",
@@ -21,10 +20,10 @@ function Sidebar() {
               }
             )}
           >
-            <div className="flex flex-row w-fit z-50">
+            <div className="flex flex-row mx-auto w-fit z-50">
               <span
                 className={cn("font-bold font-mono text-neutral-white", {
-                  "text-4xl hidden md:flex justify-between": collapse,
+                  "text-4xl w-5 overflow-hidden md:w-full text-ellipsis justify-between": collapse,
                   "w-5 z-10 truncate text-3xl": !collapse,
                 })}
               >
@@ -34,7 +33,7 @@ function Sidebar() {
                 className={cn(
                   "p-4 rounded-xl h-max relative bg-neutral-white",
                   {
-                    "hidden md:flex lg:left-24 md:left-28": collapse,
+                    "hidden md:flex lg:left-24 md:left-12": collapse,
                     "lg:left-5 md:left-3": !collapse,
                   }
                 )}

@@ -22,7 +22,8 @@ interface MovieTypes extends React.HTMLAttributes<HTMLTableElement> {
 }
 function SidebarElements() {
   const [apiseries, setApiSeries] = useState<MovieTypes[] | undefined>();
-  const limitedMovieData = series100.slice(0, 10);
+  const [showed, setShowed] = useState(5);
+  const limitedMovieData = series100.slice(0, showed);
 
   useEffect(() => {
     async function getJson() {
@@ -32,7 +33,10 @@ function SidebarElements() {
       setApiSeries(responseseries);
     }
     getJson();
+    
+    
   }, []);
+  
 
   const table = document.getElementById("tabId") as HTMLTableElement;
 
@@ -75,7 +79,7 @@ function SidebarElements() {
               <CiFilter className="my-auto mr-5" />
             </button>
           </td>
-          <td className="border-r flex-row justify-between border-b pb-2 lg:w-80 w-60 hidden md:flex">
+          <td className="border-r flex-row justify-between border-b pb-2 lg:w-80 w-60 hidden lg:flex">
             <span className="px-10 xl:w-80 lg:w-60 flex">E-Mail</span>
             <button>
               <IoFilterOutline className="my-auto mr-5" />
@@ -104,7 +108,7 @@ function SidebarElements() {
             <td className="border-r w-60 h-16 border-b hidden md:flex">
               <span className="my-auto indent-7">{apiseries.genre}</span>
             </td>
-            <td className="border-r lg:w-80 w-60 h-16 border-b hidden md:flex">
+            <td className="border-r lg:w-80 w-60 h-16 border-b hidden lg:flex">
               <span className="my-auto indent-7">{apiseries.rating}</span>
             </td>
             <td className="border-r w-80 h-16 border-b hidden lg:flex">
@@ -140,16 +144,27 @@ function SidebarElements() {
             <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
               3
             </button>
-            <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
+            <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl md:flex hidden">
               4
             </button>
             <button className="px-3 py-2 border border-neutral-400 text-black rounded-xl">
               <GoChevronRight />
             </button>
           </div>
-          <div className="gap-2 flex hidden sm:flex">
-            <select className="border border-neutral-400 text-sm px-10 md:px-14 rounded-xl">
-              <option value="volvo">Volvo</option>
+          <div className="gap-2 hidden sm:flex">
+            <select className="border border-neutral-400 text-sm px-10 md:px-14 rounded-xl" onChange={(e) => (setShowed(Number(e.currentTarget.value))
+            )}>
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="30">30</option>
+              <option value="40">40</option>
+              <option value="50">50</option>
+              <option value="60">60</option>
+              <option value="70">70</option>
+              <option value="80">80</option>
+              <option value="90">90</option>
+              <option value="100">100</option>
             </select>
             <span className="mx-auto my-auto text-sm md:text-xl font-normal">
               /Page

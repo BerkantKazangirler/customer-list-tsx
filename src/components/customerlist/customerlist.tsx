@@ -7,7 +7,7 @@ import Table from "./components/table";
 function CList() {
   const [openCustomerArea, setCustomerArea] = useState(false);
   return (
-    <div className="flex flex-col w-fit mx-auto relative left-10 md:left-32">
+    <div className="flex flex-col w-fit mx-auto relative ml-28 lg:ml-80 md:ml-52">
       <Button></Button>
       <div className="lg:px-8 mt-2 md:px-6 relative left-2 md:left-0">
         <span className="font-semibold lg:text-5xl w-fit text-2xl text-heading">
