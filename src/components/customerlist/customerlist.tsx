@@ -1,11 +1,10 @@
-import { useState } from "react";
 import { IoIosSearch } from "react-icons/io";
 import { Button } from "../button";
 import { GoPlus } from "react-icons/go";
 import Table from "./components/table";
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 
 function CList() {
-  const [openCustomerArea, setCustomerArea] = useState(false);
   return (
     <div className="flex flex-col w-full mx-auto relative ml-28 lg:ml-80 md:ml-52">
       <Button></Button>
@@ -18,25 +17,29 @@ function CList() {
           <span className="text-heading">/ Customers' List</span>
         </div>
         <div className="flex lg:flex-row lg:justify-between flex-col gap-8 lg:gap-0 w-full my-auto">
-          <div className="flex flex-col">
-            <button
-              className="uppercase mt-10 z-50 border py-2 px-5 w-60 text-lg justify-center border-blue-normal text-blue-normal flex flex-row rounded-xl font-semibold"
-              onClick={() => setCustomerArea((t) => !t)}
-            >
-              <GoPlus className="my-auto text-2xl" />
-              <p className="mx-3">New Customer</p>
-            </button>
-            {openCustomerArea && (
+          <Menu>
+            <div className="flex flex-col">
+              <MenuButton>
+                <button className="uppercase mt-10 z-50 border py-2 px-5 w-60 text-lg justify-center border-blue-normal text-blue-normal flex flex-row rounded-xl font-semibold">
+                  <GoPlus className="my-auto text-2xl" />
+                  <p className="mx-3">New Customer</p>
+                </button>
+              </MenuButton>
+
               <div className="flex flex-col">
-                <button className="py-5 px-5 border-b bg-neutral-white border-neutral-200 rounded-t-xl absolute z-10 w-60">
-                  Importing by a file
-                </button>
-                <button className="py-5 px-5 bg-neutral-white rounded-b-xl absolute lg:mt-16 mt-20 w-60">
-                  Entering manually
-                </button>
+                <MenuItems>
+                  <button className="py-5 px-5 border-b bg-neutral-white border-neutral-200 rounded-t-xl absolute z-10 w-60">
+                    Importing by a file
+                  </button>
+                </MenuItems>
+                <MenuItems>
+                  <button className="py-5 px-5 bg-neutral-white rounded-b-xl absolute lg:mt-16 mt-20 w-60">
+                    Entering manually
+                  </button>
+                </MenuItems>
               </div>
-            )}
-          </div>
+            </div>
+          </Menu>
           <div>
             <IoIosSearch className="absolute mt-5 ml-5 text-disabled" />
             <input

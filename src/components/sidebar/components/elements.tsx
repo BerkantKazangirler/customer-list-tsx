@@ -12,43 +12,43 @@ interface Props {
 function SidebarElements({ collapse }: Props) {
   return (
     <>
-      <div className="uppercase pe-4 ps-4 md:ps-0 md:pe-0">
+      <div className="pe-4 ps-4 md:ps-0 md:pe-0">
         <div className="flex flex-row h-14 w-full mt-8 p-4 pl-4 items-center">
           <FiHome className="self-center" />
 
-          <span
-            className={cn("ml-3 hidden lg:text-base md:text-sm md:flex ", {
+          <button
+            className={cn("ml-3 hidden uppercase lg:text-base md:text-sm md:flex ", {
               "hidden md:hidden": !collapse,
             })}
           >
             Dashboard
-          </span>
+          </button>
         </div>
 
-        <div className="flex flex-row w-full h-14 p-4 rounded-xl bg-neutral-800">
+        <div className="flex flex-row uppercase w-full h-14 p-4 rounded-xl bg-neutral-800">
           <GoPeople className="self-center" />
-          <span
-            className={cn("ml-3 hidden lg:text-base md:text-sm md:flex", {
+          <button
+            className={cn("ml-3 hidden uppercase lg:text-base md:text-sm md:flex", {
               "hidden md:hidden": !collapse,
             })}
           >
             Custommers
-          </span>
+          </button>
         </div>
 
         <div className="flex flex-row w-full h-14 p-4">
           <IoTimeOutline className="self-center" />
-          <span
-            className={cn("ml-3 hidden lg:text-base md:text-sm md:flex", {
+          <button
+            className={cn("ml-3 hidden uppercase lg:text-base md:text-sm md:flex", {
               "hidden md:hidden": !collapse,
             })}
           >
             Analytics
-          </span>
+          </button>
         </div>
 
         <span
-          className={cn("mt-7 hidden text-sm text-neutral-700 font-mono md:flex", {
+          className={cn("mt-7 hidden text-sm uppercase text-neutral-700 font-mono md:flex", {
             "hidden md:hidden": !collapse,
           })}
         >
@@ -62,37 +62,37 @@ function SidebarElements({ collapse }: Props) {
         >
           <PiEnvelopeSimple className="self-center" />
 
-          <span
-            className={cn("ml-3 hidden lg:text-base md:text-sm md:flex", {
+          <button
+            className={cn("ml-3 hidden uppercase lg:text-base md:text-sm md:flex", {
               "hidden md:hidden": !collapse,
             })}
           >
             Messages
-          </span>
+          </button>
         </div>
 
         <div className="flex flex-row w-full h-14 p-4">
           <VscSettings className="self-center" />
 
-          <span
-            className={cn("ml-3 hidden lg:text-base md:text-sm md:flex", {
+          <button
+            className={cn("ml-3 hidden uppercase lg:text-base md:text-sm md:flex", {
               "hidden md:hidden": !collapse,
             })}
           >
             Setting
-          </span>
+          </button>
         </div>
 
         <div className="flex flex-row w-full h-14 p-4">
           <IoIosHelpCircleOutline className="self-center" />
 
-          <span
-            className={cn("ml-3 hidden lg:text-base md:text-sm md:flex", {
+          <button
+            className={cn("ml-3 hidden uppercase lg:text-base md:text-sm md:flex", {
               "hidden md:hidden": !collapse,
             })}
           >
             Help Centre
-          </span>
+          </button>
         </div>
       </div>
     </>
