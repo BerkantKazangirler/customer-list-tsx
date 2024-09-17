@@ -10,19 +10,19 @@ function CList() {
       <Button></Button>
       <div className="lg:px-8 md:mt-2 mt-10 md:px-6 relative left-2 md:left-0">
         <span className="font-semibold lg:text-5xl w-fit text-2xl text-heading ">
-          Customers' List
+          Movie List
         </span>
         <div className="flex flex-row gap-3 lg:text-lg text-sm mt-5 w-fit">
           <span className="text-secondary">Dashboard</span>
-          <span className="text-heading">/ Customers' List</span>
+          <span className="text-heading">/ Movie List</span>
         </div>
-        <div className="flex lg:flex-row lg:justify-between flex-col gap-8 lg:gap-0 w-full my-auto">
+        <div className="flex lg:flex-row-reverse lg:justify-between flex-col gap-8 lg:gap-0 w-full my-auto">
           <Menu>
             <div className="flex flex-col">
               <MenuButton>
                 <button className="uppercase mt-10 z-50 border py-2 px-5 w-60 text-lg justify-center border-blue-normal text-blue-normal flex flex-row rounded-xl font-semibold">
                   <GoPlus className="my-auto text-2xl" />
-                  <p className="mx-3">New Customer</p>
+                  <p className="mx-3">Add Movie</p>
                 </button>
               </MenuButton>
 
@@ -40,7 +40,7 @@ function CList() {
               </div>
             </div>
           </Menu>
-          <div>
+          <div className="mt-10">
             <IoIosSearch className="absolute mt-5 ml-5 text-disabled" />
             <input
               type="text"

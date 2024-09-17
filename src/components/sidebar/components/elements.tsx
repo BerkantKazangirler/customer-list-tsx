@@ -1,5 +1,5 @@
 import { FiHome } from "react-icons/fi";
-import { GoPeople } from "react-icons/go";
+import { MdMovieCreation } from "react-icons/md";
 import { IoTimeOutline } from "react-icons/io5";
 import { PiEnvelopeSimple } from "react-icons/pi";
 import { VscSettings } from "react-icons/vsc";
@@ -26,13 +26,13 @@ function SidebarElements({ collapse }: Props) {
         </div>
 
         <div className="flex flex-row uppercase w-full h-14 p-4 rounded-xl bg-neutral-800">
-          <GoPeople className="self-center" />
+          <MdMovieCreation className="self-center" />
           <button
             className={cn("ml-3 hidden uppercase lg:text-base md:text-sm md:flex", {
               "hidden md:hidden": !collapse,
             })}
           >
-            Custommers
+            Movies
           </button>
         </div>
 
@@ -79,7 +79,7 @@ function SidebarElements({ collapse }: Props) {
               "hidden md:hidden": !collapse,
             })}
           >
-            Setting
+            Settings
           </button>
         </div>
 

@@ -1,11 +1,14 @@
 import { CiFilter } from "react-icons/ci";
 import { IoFilterOutline } from "react-icons/io5";
 import { GoArrowUpRight, GoChevronLeft, GoChevronRight } from "react-icons/go";
+import { MdExitToApp } from "react-icons/md";
 import series100 from "../../../../public/top-100-series.json";
 import { PiPencilSimpleLineLight } from "react-icons/pi";
 import { FiTrash } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+import { toast } from "react-toastify";
+import Modal from "./modal";
 
 interface MovieTypes extends React.HTMLAttributes<HTMLTableElement> {
   big_image: string;
@@ -13,7 +16,7 @@ interface MovieTypes extends React.HTMLAttributes<HTMLTableElement> {
   genre: string[];
   id: string;
   image: string;
-  imbd_link: string;
+  imdb_link: string;
   imbid: string;
   rank: number;
   rating: string;
@@ -25,6 +28,7 @@ function SidebarElements() {
   const [apiseries, setApiSeries] = useState<MovieTypes[] | undefined>();
   const [showed, setShowed] = useState(5);
   const limitedMovieData = series100.slice(0, showed);
+  let [seriemodal, setSeriModal] = useState<MovieTypes>();
 
   useEffect(() => {
     async function getJson() {
@@ -48,86 +52,92 @@ function SidebarElements() {
     }
   }
 
+  function openSeriInfo(i: number) {
+    if (apiseries !== undefined) {
+      console.log(apiseries[i]);
+      setSeriModal(apiseries[i]);
+    } else {
+      toast.error("Hata Mevcut Daha Sonra Tekrar Deneyin");
+    }
+  }
+
   return (
-    <>
+    <Menu>
       <table
         id="tabId"
-        className="flex-col bg-neutral-white p-8 mt-10 flex rounded w-fit 2xl:mx-auto"
+        className="flex-col bg-neutral-white p-8 mt-10 flex rounded w-fit"
       >
-        <Menu>
-          <tr className="flex flex-row text-secondary">
-            <td className="border-r w-16 border-b pb-2 hidden sm:flex">
-              <span className="lg:pr-10 md:pr-5 lg:pl-5 md:pl-2">#</span>
-            </td>
-            <td className="border-r flex flex-row justify-between lg:w-80 w-72 border-b pb-2">
-              <span className="flex pr-10 pl-7">Full Name</span>
-              <div className="flex flex-row gap-3 my-auto">
-                <MenuButton>
-                  <button>
-                    <IoFilterOutline className="my-auto mr-5" />
-                  </button>
-                </MenuButton>
-                <MenuButton>
-                  <button>
-                    <CiFilter className="my-auto mr-5" />
-                  </button>
-                </MenuButton>
-              </div>
-            </td>
-            <td className="border-r flex-row justify-between border-b pb-2 w-60 hidden md:flex">
-              <span className="lg:pr-20 md:pr-10 pl-7">Status</span>
-              <MenuButton>
-                <button>
-                  <CiFilter className="my-auto mr-5" />
-                </button>
-              </MenuButton>
-            </td>
-            <td className="border-r flex-row justify-between border-b pb-2 lg:w-72 w-52 hidden xl:flex">
-              <span className="px-10 flex">E-Mail</span>
-              <MenuButton>
-                <button>
-                  <IoFilterOutline className="my-auto mr-5" />
-                </button>
-              </MenuButton>
-            </td>
-            <td className="border-r flex-row justify-between border-b pb-2 w-80 hidden 2xl:flex">
-              <span className="px-10 flex">Date of Birth</span>
-              <div className="flex flex-row gap-3 my-auto">
-                <MenuButton>
-                  <button>
-                    <IoFilterOutline className="my-auto mr-5" />
-                  </button>
-                </MenuButton>
-                <MenuButton>
-                  <button>
-                    <CiFilter className="my-auto mr-5" />
-                  </button>
-                </MenuButton>
-              </div>
-            </td>
-          </tr>
-        </Menu>
-        {limitedMovieData.map((apiseries) => (
-          <tr className="flex flex-row">
+        <tr className="flex flex-row text-secondary">
+          <td className="border-r w-16 border-b pb-2 hidden sm:flex">
+            <span className="lg:pr-10 md:pr-5 lg:pl-5 md:pl-2">#</span>
+          </td>
+          <td className="border-r flex flex-row justify-between lg:w-80 w-72 border-b pb-2">
+            <span className="flex pr-10 pl-7">Series Name</span>
+            <div className="flex flex-row gap-3 my-auto">
+              <button>
+                <IoFilterOutline className="my-auto mr-5" />
+              </button>
+
+              <button>
+                <CiFilter className="my-auto mr-5" />
+              </button>
+            </div>
+          </td>
+          <td className="border-r flex-row justify-between border-b pb-2 w-96 hidden md:flex">
+            <span className="lg:pr-20 md:pr-10 pl-7">Category</span>
+
+            <button>
+              <CiFilter className="my-auto mr-5" />
+            </button>
+          </td>
+          <td className="border-r flex-row justify-between border-b pb-2 lg:w-48 w-24 hidden xl:flex">
+            <span className="px-6 flex">Rating</span>
+
+            <button>
+              <IoFilterOutline className="my-auto mr-5" />
+            </button>
+          </td>
+          <td className="border-r flex-row justify-between border-b pb-2 w-80 hidden 2xl:flex">
+            <span className="px-7 flex">Year</span>
+            <div className="flex flex-row gap-3 my-auto">
+              <button>
+                <IoFilterOutline className="my-auto mr-5" />
+              </button>
+
+              <button>
+                <CiFilter className="my-auto mr-5" />
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        {limitedMovieData.map((apiseries, i) => (
+          <tr className="flex flex-row" id={i.toString()}>
             <td className="border-r w-16 h-16 border-b hidden sm:flex">
               <span className="my-auto mx-auto">{apiseries.id}</span>
             </td>
             <td className="border-r lg:w-80 w-72 flex h-16 border-b">
               <span className="my-auto indent-7">{apiseries.title}</span>
             </td>
-            <td className="border-r w-60 h-16 border-b hidden md:flex">
-              <span className="my-auto indent-7">{apiseries.genre}</span>
+            <td className="border-r w-96 h-16 border-b hidden md:flex">
+              <span className="my-auto indent-7">
+                {(apiseries.genre[1] &&
+                  " " + apiseries.genre[0] + " • " + apiseries.genre[1]) ||
+                  apiseries.genre}
+              </span>
             </td>
-            <td className="border-r lg:w-72 w-52 h-16 border-b hidden xl:flex">
+            <td className="border-r lg:w-48 w-24 h-16 border-b hidden xl:flex">
               <span className="my-auto indent-7">{apiseries.rating}</span>
             </td>
             <td className="border-r w-80 h-16 border-b hidden 2xl:flex">
-              <span className="my-auto indent-7">{apiseries.title}</span>
+              <span className="my-auto indent-7">{apiseries.year}</span>
             </td>
             <td className="flex-row w-fit gap-2 border-t pl-2 py-2 hidden 2xl:flex">
-              <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
-                <GoArrowUpRight />
-              </button>
+              <MenuButton>
+                <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
+                  <GoArrowUpRight onClick={() => openSeriInfo(i)} />
+                </button>
+              </MenuButton>
               <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
                 <PiPencilSimpleLineLight />
               </button>
@@ -140,8 +150,51 @@ function SidebarElements() {
             </td>
           </tr>
         ))}
+
+        {seriemodal !== undefined && (
+          <MenuItems>
+            <div className="absolute flex flex-col rounded-xl top-[40%] w-96 h-96 left-1/4 bg-zinc-900 backdrop-brightness-95 p-2">
+              <div className="flex justify-end">
+                <div
+                  className="bg-red-700 p-1 rounded"
+                  onClick={() => setSeriModal(undefined)}
+                >
+                  <MdExitToApp className="text-xl mx-auto text-white" />
+                </div>
+              </div>
+              <img
+                src={seriemodal.image}
+                className="h-44 w-32 mx-auto border border-gray-400 rounded"
+              />
+              <span className="text-white mx-auto">{seriemodal.title}</span>
+              <span className="text-white mx-auto text-sm">
+                {"Dünya Sıralaması : " + seriemodal.rank}
+              </span>
+              <span className="text-white mx-auto text-sm">
+                {"IMDB Puanı : " + seriemodal.rating}
+              </span>
+              <span className="text-white mx-auto text-sm">
+                {"Çekim Yılı : " + seriemodal.year}
+              </span>
+              <span className="text-white mx-auto text-sm">
+                {" "}
+                {(seriemodal.genre[1] &&
+                  " " + seriemodal.genre[0] + " • " + seriemodal.genre[1]) ||
+                  seriemodal.genre}
+              </span>
+              <a
+                href={seriemodal.imdb_link}
+                target="_blank"
+                className="text-sm text-neutral-400 mx-auto"
+              >
+                İMDB Link
+              </a>
+            </div>
+          </MenuItems>
+        )}
+
         <div className="flex flex-row mt-5 font-semibold gap-5 md:gap-10">
-          <div className="flex gap-4 h-fit">
+          <div className="flex gap-2 h-fit">
             <button className="px-3 py-2 bg-disabled text-neutral-200 rounded-xl">
               <GoChevronLeft />
             </button>
@@ -163,7 +216,7 @@ function SidebarElements() {
           </div>
           <div className="gap-2 hidden sm:flex">
             <select
-              className="border border-neutral-400 text-sm px-10 md:px-14 rounded-xl"
+              className="border border-neutral-400 text-sm px-8 md:px-10 rounded-xl"
               onChange={(e) => setShowed(Number(e.currentTarget.value))}
             >
               <option value="5">5</option>
@@ -178,13 +231,11 @@ function SidebarElements() {
               <option value="90">90</option>
               <option value="100">100</option>
             </select>
-            <span className="mx-auto my-auto text-sm md:text-xl font-normal">
-              /Page
-            </span>
+            <span className="mx-auto my-auto text-sm font-normal">/Page</span>
           </div>
         </div>
       </table>
-    </>
+    </Menu>
   );
 }
 
