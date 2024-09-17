@@ -8,9 +8,8 @@ import { FiTrash } from "react-icons/fi";
 import { useEffect, useState } from "react";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { toast } from "react-toastify";
-import Modal from "./modal";
 
-interface MovieTypes extends React.HTMLAttributes<HTMLTableElement> {
+interface MovieTypes {
   big_image: string;
   description: string;
   genre: string[];
@@ -24,11 +23,18 @@ interface MovieTypes extends React.HTMLAttributes<HTMLTableElement> {
   title: string;
   year: number;
 }
-function SidebarElements() {
-  const [apiseries, setApiSeries] = useState<MovieTypes[] | undefined>();
+
+interface TableProps {
+  searchValue: string; // Prop olarak arama değeri
+}
+
+function SidebarElements({ searchValue }: TableProps) {
+  const [apiseries, setApiSeries] = useState<MovieTypes[]>([]);
+  const [filteredApi, setFilteredApi] = useState<MovieTypes[]>([]);
   const [showed, setShowed] = useState(5);
-  const limitedMovieData = series100.slice(0, showed);
   let [seriemodal, setSeriModal] = useState<MovieTypes>();
+
+  const limitedMovieData = filteredApi.slice(0, showed);
 
   useEffect(() => {
     async function getJson() {
@@ -36,13 +42,21 @@ function SidebarElements() {
         "../../../../public/top-100-series.json"
       ).then((res) => res.json());
       setApiSeries(responseseries);
+      setFilteredApi(responseseries);
     }
     getJson();
   }, []);
 
-  const table = document.getElementById("tabId") as HTMLTableElement;
+  // searchValue her değiştiğinde filtreleme işlemi yapılacak
+  useEffect(() => {
+    const filtered = apiseries.filter((apiseries) =>
+      apiseries.title.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredApi(filtered);
+  }, [searchValue, apiseries]);
 
-  function deleterew() {
+  function deleterew(i: Number) {
+    const table = document.getElementById("tabId") as HTMLTableElement;
     for (let i = 1; i < table.rows.length; i++) {
       const row = table.rows[i];
       row.addEventListener("click", () => {
@@ -67,53 +81,54 @@ function SidebarElements() {
         id="tabId"
         className="flex-col bg-neutral-white p-8 mt-10 flex rounded w-fit"
       >
-        <tr className="flex flex-row text-secondary">
-          <td className="border-r w-16 border-b pb-2 hidden sm:flex">
-            <span className="lg:pr-10 md:pr-5 lg:pl-5 md:pl-2">#</span>
-          </td>
-          <td className="border-r flex flex-row justify-between lg:w-80 w-72 border-b pb-2">
-            <span className="flex pr-10 pl-7">Series Name</span>
-            <div className="flex flex-row gap-3 my-auto">
-              <button>
-                <IoFilterOutline className="my-auto mr-5" />
-              </button>
+        <thead>
+          <tr className="flex flex-row text-secondary">
+            <th className="border-r w-16 border-b pb-2 hidden sm:flex">
+              <span className="lg:pr-10 md:pr-5 lg:pl-5 md:pl-2">#</span>
+            </th>
+            <th className="border-r flex flex-row justify-between lg:w-80 w-72 border-b pb-2">
+              <span className="flex pr-10 pl-7">Series Name</span>
+              <div className="flex flex-row gap-3 my-auto">
+                <button>
+                  <IoFilterOutline className="my-auto mr-5" />
+                </button>
+                <button>
+                  <CiFilter className="my-auto mr-5" />
+                </button>
+              </div>
+            </th>
+            <th className="border-r flex-row justify-between border-b pb-2 w-96 hidden md:flex">
+              <span className="lg:pr-20 md:pr-10 pl-7">Category</span>
 
               <button>
                 <CiFilter className="my-auto mr-5" />
               </button>
-            </div>
-          </td>
-          <td className="border-r flex-row justify-between border-b pb-2 w-96 hidden md:flex">
-            <span className="lg:pr-20 md:pr-10 pl-7">Category</span>
+            </th>
+            <th className="border-r flex-row justify-between border-b pb-2 lg:w-48 w-24 hidden xl:flex">
+              <span className="px-6 flex">Rating</span>
 
-            <button>
-              <CiFilter className="my-auto mr-5" />
-            </button>
-          </td>
-          <td className="border-r flex-row justify-between border-b pb-2 lg:w-48 w-24 hidden xl:flex">
-            <span className="px-6 flex">Rating</span>
-
-            <button>
-              <IoFilterOutline className="my-auto mr-5" />
-            </button>
-          </td>
-          <td className="border-r flex-row justify-between border-b pb-2 w-80 hidden 2xl:flex">
-            <span className="px-7 flex">Year</span>
-            <div className="flex flex-row gap-3 my-auto">
               <button>
                 <IoFilterOutline className="my-auto mr-5" />
               </button>
+            </th>
+            <th className="border-r flex-row justify-between border-b pb-2 w-80 hidden 2xl:flex">
+              <span className="px-7 flex">Year</span>
+              <div className="flex flex-row gap-3 my-auto">
+                <button>
+                  <IoFilterOutline className="my-auto mr-5" />
+                </button>
 
-              <button>
-                <CiFilter className="my-auto mr-5" />
-              </button>
-            </div>
-          </td>
-        </tr>
-
-        {limitedMovieData.map((apiseries, i) => (
-          <tr className="flex flex-row" id={i.toString()}>
-            <td className="border-r w-16 h-16 border-b hidden sm:flex">
+                <button>
+                  <CiFilter className="my-auto mr-5" />
+                </button>
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {limitedMovieData.map((apiseries, i) => (
+            <tr className="flex flex-row" id={i.toString()} key={i}>
+                         <td className="border-r w-16 h-16 border-b hidden sm:flex">
               <span className="my-auto mx-auto">{apiseries.id}</span>
             </td>
             <td className="border-r lg:w-80 w-72 flex h-16 border-b">
@@ -132,7 +147,7 @@ function SidebarElements() {
             <td className="border-r w-80 h-16 border-b hidden 2xl:flex">
               <span className="my-auto indent-7">{apiseries.year}</span>
             </td>
-            <td className="flex-row w-fit gap-2 border-t pl-2 py-2 hidden 2xl:flex">
+              <td className="flex-row w-fit gap-2 border-t pl-2 py-2 hidden 2xl:flex">
               <MenuButton>
                 <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
                   <GoArrowUpRight onClick={() => openSeriInfo(i)} />
@@ -143,14 +158,14 @@ function SidebarElements() {
               </button>
               <button
                 className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl"
-                onClick={() => deleterew()}
+                onClick={() => deleterew(i)}
               >
                 <FiTrash />
               </button>
             </td>
-          </tr>
-        ))}
-
+            </tr>
+          ))}
+          
         {seriemodal !== undefined && (
           <MenuItems>
             <div className="absolute flex flex-col rounded-xl top-[40%] w-96 h-96 left-1/4 bg-zinc-900 backdrop-brightness-95 p-2">
@@ -192,7 +207,8 @@ function SidebarElements() {
             </div>
           </MenuItems>
         )}
-
+        </tbody>
+        <tfoot>
         <div className="flex flex-row mt-5 font-semibold gap-5 md:gap-10">
           <div className="flex gap-2 h-fit">
             <button className="px-3 py-2 bg-disabled text-neutral-200 rounded-xl">
@@ -234,6 +250,7 @@ function SidebarElements() {
             <span className="mx-auto my-auto text-sm font-normal">/Page</span>
           </div>
         </div>
+        </tfoot>
       </table>
     </Menu>
   );

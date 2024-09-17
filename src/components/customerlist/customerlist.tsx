@@ -3,8 +3,11 @@ import { Button } from "../button";
 import { GoPlus } from "react-icons/go";
 import Table from "./components/table";
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+import { useState } from "react";
 
 function CList() {
+  const [textValue, setTextValue] = useState<string>("");
+
   return (
     <div className="flex flex-col w-full mx-auto relative ml-28 lg:ml-80 md:ml-52">
       <Button></Button>
@@ -46,10 +49,11 @@ function CList() {
               type="text"
               className="border-neutral-400 bg-neutral-white text-disabled  h-14 rounded-xl border lg:w-96 w-60 indent-14"
               placeholder="Search.."
+              onChange={(e) => setTextValue(e.currentTarget.value)} // Değerin state'e kaydedilmesi
             />
           </div>
         </div>
-        <Table></Table>
+        <Table searchValue={textValue} /> {/* searchValue prop'unu Table bileşenine geçiyoruz */}
       </div>
     </div>
   );

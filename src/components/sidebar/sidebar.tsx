@@ -31,9 +31,9 @@ function Sidebar() {
               </span>
               <button
                 className={cn(
-                  "p-4 rounded-xl h-max relative bg-neutral-white",
+                  "p-4 rounded-xl h-max relative bg-neutral-white z-50",
                   {
-                    "hidden md:flex lg:left-24 md:left-12": collapse,
+                    "hidden md:flex lg:left-[86px] md:left-12": collapse,
                     "lg:left-5 md:left-3": !collapse,
                   }
                 )}

@@ -37,12 +37,12 @@ function Buttons() {
           </MenuButton>
           <div className=" flex flex-col absolute w-full">
             <MenuItems>
-              <button className="bg-neutral-500 border-t w-48 border-l border-r border-black/30 p-2 rounded-t border-b border-b-neutral-white/20 text-sm">
+              <button className="bg-neutral-white border-t w-48 border-l border-r p-2 rounded-t border-b border-b-neutral-black/20 text-sm">
                 Sign Out
               </button>
             </MenuItems>
             <MenuItems>
-              <button className="bg-neutral-500 border-b w-48 border-l border-r border-black/30 p-2 rounded-b text-sm">
+              <button className="bg-neutral-white border-b w-48 border-l border-r p-2 rounded-b text-sm">
                 Account Settings
               </button>
             </MenuItems>
