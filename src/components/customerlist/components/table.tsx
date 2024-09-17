@@ -16,7 +16,7 @@ interface MovieTypes {
   id: string;
   image: string;
   imdb_link: string;
-  imbid: string;
+  imdbid: string;
   rank: number;
   rating: string;
   thumbnail: string;
@@ -25,7 +25,7 @@ interface MovieTypes {
 }
 
 interface TableProps {
-  searchValue: string; // Prop olarak arama değeri
+  searchValue: string;
 }
 
 function SidebarElements({ searchValue }: TableProps) {
@@ -47,7 +47,6 @@ function SidebarElements({ searchValue }: TableProps) {
     getJson();
   }, []);
 
-  // searchValue her değiştiğinde filtreleme işlemi yapılacak
   useEffect(() => {
     const filtered = apiseries.filter((apiseries) =>
       apiseries.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -55,14 +54,12 @@ function SidebarElements({ searchValue }: TableProps) {
     setFilteredApi(filtered);
   }, [searchValue, apiseries]);
 
-  function deleterew(i: Number) {
-    const table = document.getElementById("tabId") as HTMLTableElement;
-    for (let i = 1; i < table.rows.length; i++) {
-      const row = table.rows[i];
-      row.addEventListener("click", () => {
-        console.log("Row index is: " + row.rowIndex);
-        table.deleteRow(row.rowIndex);
-      });
+  function deleteRow(imdbid: string) {
+    const row = document.getElementById(imdbid);
+    if (row && row.parentNode) {
+      row.parentNode.removeChild(row);
+    } else {
+      console.error("Row not found");
     }
   }
 
@@ -127,7 +124,7 @@ function SidebarElements({ searchValue }: TableProps) {
         </thead>
         <tbody>
           {limitedMovieData.map((apiseries, i) => (
-            <tr className="flex flex-row" id={i.toString()}>
+            <tr className="flex flex-row" id={apiseries.imdbid}>
               <td className="border-r w-16 h-16 border-b hidden sm:flex">
                 <span className="my-auto mx-auto">{apiseries.id}</span>
               </td>
@@ -159,7 +156,7 @@ function SidebarElements({ searchValue }: TableProps) {
                 </button>
                 <button
                   className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl"
-                  onClick={() => deleterew(i)}
+                  onClick={() => deleteRow(apiseries.imdbid)}
                 >
                   <FiTrash />
                 </button>
