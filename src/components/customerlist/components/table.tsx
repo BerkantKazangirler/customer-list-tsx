@@ -2,7 +2,7 @@ import { CiFilter } from "react-icons/ci";
 import { IoFilterOutline } from "react-icons/io5";
 import { GoArrowUpRight, GoChevronLeft, GoChevronRight } from "react-icons/go";
 import { MdExitToApp } from "react-icons/md";
-import series100 from "../../../../public/top-100-series.json";
+import { FaStar } from "react-icons/fa6";
 import { PiPencilSimpleLineLight } from "react-icons/pi";
 import { FiTrash } from "react-icons/fi";
 import { useEffect, useState } from "react";
@@ -127,129 +127,153 @@ function SidebarElements({ searchValue }: TableProps) {
         </thead>
         <tbody>
           {limitedMovieData.map((apiseries, i) => (
-            <tr className="flex flex-row" id={i.toString()} key={i}>
-                         <td className="border-r w-16 h-16 border-b hidden sm:flex">
-              <span className="my-auto mx-auto">{apiseries.id}</span>
-            </td>
-            <td className="border-r lg:w-80 w-72 flex h-16 border-b">
-              <span className="my-auto indent-7">{apiseries.title}</span>
-            </td>
-            <td className="border-r w-96 h-16 border-b hidden md:flex">
-              <span className="my-auto indent-7">
-                {(apiseries.genre[1] &&
-                  " " + apiseries.genre[0] + " • " + apiseries.genre[1]) ||
-                  apiseries.genre}
-              </span>
-            </td>
-            <td className="border-r lg:w-48 w-24 h-16 border-b hidden xl:flex">
-              <span className="my-auto indent-7">{apiseries.rating}</span>
-            </td>
-            <td className="border-r w-80 h-16 border-b hidden 2xl:flex">
-              <span className="my-auto indent-7">{apiseries.year}</span>
-            </td>
+            <tr className="flex flex-row" id={i.toString()}>
+              <td className="border-r w-16 h-16 border-b hidden sm:flex">
+                <span className="my-auto mx-auto">{apiseries.id}</span>
+              </td>
+              <td className="border-r lg:w-80 w-72 flex h-16 border-b">
+                <span className="my-auto indent-7">{apiseries.title}</span>
+              </td>
+              <td className="border-r w-96 h-16 border-b hidden md:flex">
+                <span className="my-auto indent-7">
+                  {(apiseries.genre[1] &&
+                    " " + apiseries.genre[0] + " • " + apiseries.genre[1]) ||
+                    apiseries.genre}
+                </span>
+              </td>
+              <td className="border-r lg:w-48 w-24 h-16 border-b hidden xl:flex">
+                <span className="my-auto indent-7">{apiseries.rating}</span>
+              </td>
+              <td className="border-r w-80 h-16 border-b hidden 2xl:flex">
+                <span className="my-auto indent-7">{apiseries.year}</span>
+              </td>
+
               <td className="flex-row w-fit gap-2 border-t pl-2 py-2 hidden 2xl:flex">
-              <MenuButton>
+                <MenuButton>
+                  <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
+                    <GoArrowUpRight onClick={() => openSeriInfo(i)} />
+                  </button>
+                </MenuButton>
                 <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
-                  <GoArrowUpRight onClick={() => openSeriInfo(i)} />
+                  <PiPencilSimpleLineLight />
                 </button>
-              </MenuButton>
-              <button className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl">
-                <PiPencilSimpleLineLight />
-              </button>
-              <button
-                className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl"
-                onClick={() => deleterew(i)}
-              >
-                <FiTrash />
-              </button>
-            </td>
+                <button
+                  className="border border-neutral-400 text-button-inverted p-3 rounded-xl text-xl"
+                  onClick={() => deleterew(i)}
+                >
+                  <FiTrash />
+                </button>
+              </td>
             </tr>
           ))}
-          
-        {seriemodal !== undefined && (
-          <MenuItems>
-            <div className="absolute flex flex-col rounded-xl top-[40%] w-96 h-96 left-1/4 bg-zinc-900 backdrop-brightness-95 p-2">
-              <div className="flex justify-end">
-                <div
-                  className="bg-red-700 p-1 rounded"
-                  onClick={() => setSeriModal(undefined)}
-                >
-                  <MdExitToApp className="text-xl mx-auto text-white" />
+
+          {seriemodal !== undefined && (
+            <MenuItems>
+              <div
+                className="absolute flex flex-row-reverse rounded-xl top-[38%] w-[650px] h-[300px]
+             left-1/4 bg-zinc-900 backdrop-brightness-95 p-2"
+              >
+                <div>
+                  <div
+                    className="bg-red-700 p-1 rounded h-fit"
+                    onClick={() => setSeriModal(undefined)}
+                  >
+                    <MdExitToApp className="text-xl mx-auto text-white" />
+                  </div>
+                </div>
+                <div className="flex flex-row gap-10 w-full">
+                  <img
+                    src={seriemodal.image}
+                    className="h-full w-48 border border-gray-400 rounded"
+                  />
+                  <div className="flex flex-col">
+                    <div
+                      className="flex flex-row gap-2
+                    "
+                    >
+                      <span className="bg-red-400 px-2 gap-1 text-white h-fit py-1 rounded flex flex-row">
+                        <FaStar className="my-auto" />
+                        {seriemodal.rating}
+                      </span>
+                      {(seriemodal.genre[1] && (
+                        <>
+                          <span className="bg-red-400 h-fit px-2 py-1 rounded">
+                            {seriemodal.genre[1]}
+                          </span>
+                          <span className="bg-red-400 h-fit px-2 py-1 rounded">
+                            {seriemodal.genre[2]}
+                          </span>
+                          {seriemodal.genre[3] && (
+                            <span className="bg-red-400 h-fit px-2 py-1 rounded">
+                              {seriemodal.genre[3]}
+                            </span>
+                          )}
+                        </>
+                      )) || (
+                        <span className="bg-red-400 h-fit px-2 py-1 rounded">
+                          {seriemodal.genre}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex flex-col mt-3">
+                      <span className="text-xl text-white mx-auto">
+                        {seriemodal.title}
+                      </span>
+                      <span className="text-white overflow-scroll break-words text-center">
+                        {seriemodal.description}
+                      </span>
+                      <span className="text-white/70 text-sm mt-5">
+                        {"Çıkış Yılı : " + seriemodal.year}
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <img
-                src={seriemodal.image}
-                className="h-44 w-32 mx-auto border border-gray-400 rounded"
-              />
-              <span className="text-white mx-auto">{seriemodal.title}</span>
-              <span className="text-white mx-auto text-sm">
-                {"Dünya Sıralaması : " + seriemodal.rank}
-              </span>
-              <span className="text-white mx-auto text-sm">
-                {"IMDB Puanı : " + seriemodal.rating}
-              </span>
-              <span className="text-white mx-auto text-sm">
-                {"Çekim Yılı : " + seriemodal.year}
-              </span>
-              <span className="text-white mx-auto text-sm">
-                {" "}
-                {(seriemodal.genre[1] &&
-                  " " + seriemodal.genre[0] + " • " + seriemodal.genre[1]) ||
-                  seriemodal.genre}
-              </span>
-              <a
-                href={seriemodal.imdb_link}
-                target="_blank"
-                className="text-sm text-neutral-400 mx-auto"
-              >
-                İMDB Link
-              </a>
-            </div>
-          </MenuItems>
-        )}
+            </MenuItems>
+          )}
         </tbody>
         <tfoot>
-        <div className="flex flex-row mt-5 font-semibold gap-5 md:gap-10">
-          <div className="flex gap-2 h-fit">
-            <button className="px-3 py-2 bg-disabled text-neutral-200 rounded-xl">
-              <GoChevronLeft />
-            </button>
-            <button className="px-4 py-2 border border-blue-normal text-blue-normal rounded-xl">
-              1
-            </button>
-            <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
-              2
-            </button>
-            <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
-              3
-            </button>
-            <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl md:flex hidden">
-              4
-            </button>
-            <button className="px-3 py-2 border border-neutral-400 text-black rounded-xl">
-              <GoChevronRight />
-            </button>
+          <div className="flex flex-row mt-5 font-semibold gap-5 md:gap-10">
+            <div className="flex gap-2 h-fit">
+              <button className="px-3 py-2 bg-disabled text-neutral-200 rounded-xl">
+                <GoChevronLeft />
+              </button>
+              <button className="px-4 py-2 border border-blue-normal text-blue-normal rounded-xl">
+                1
+              </button>
+              <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
+                2
+              </button>
+              <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
+                3
+              </button>
+              <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl md:flex hidden">
+                4
+              </button>
+              <button className="px-3 py-2 border border-neutral-400 text-black rounded-xl">
+                <GoChevronRight />
+              </button>
+            </div>
+            <div className="gap-2 hidden sm:flex">
+              <select
+                className="border border-neutral-400 text-sm px-8 md:px-10 rounded-xl"
+                onChange={(e) => setShowed(Number(e.currentTarget.value))}
+              >
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
+                <option value="90">90</option>
+                <option value="100">100</option>
+              </select>
+              <span className="mx-auto my-auto text-sm font-normal">/Page</span>
+            </div>
           </div>
-          <div className="gap-2 hidden sm:flex">
-            <select
-              className="border border-neutral-400 text-sm px-8 md:px-10 rounded-xl"
-              onChange={(e) => setShowed(Number(e.currentTarget.value))}
-            >
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="30">30</option>
-              <option value="40">40</option>
-              <option value="50">50</option>
-              <option value="60">60</option>
-              <option value="70">70</option>
-              <option value="80">80</option>
-              <option value="90">90</option>
-              <option value="100">100</option>
-            </select>
-            <span className="mx-auto my-auto text-sm font-normal">/Page</span>
-          </div>
-        </div>
         </tfoot>
       </table>
     </Menu>
