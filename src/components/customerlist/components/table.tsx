@@ -31,10 +31,17 @@ interface TableProps {
 function SidebarElements({ searchValue }: TableProps) {
   const [apiseries, setApiSeries] = useState<MovieTypes[]>([]);
   const [filteredApi, setFilteredApi] = useState<MovieTypes[]>([]);
-  const [showed, setShowed] = useState(5);
+  const [pagination, setPagination] = useState({
+    current_page: 0,
+    per_page: 5,
+    total_page: 0,
+  });
   let [seriemodal, setSeriModal] = useState<MovieTypes>();
 
-  const limitedMovieData = filteredApi.slice(0, showed);
+  let limitedMovieData = filteredApi.slice(
+    pagination.current_page * pagination.per_page,
+    (pagination.current_page + 1) * pagination.per_page
+  );
 
   useEffect(() => {
     async function getJson() {
@@ -60,6 +67,7 @@ function SidebarElements({ searchValue }: TableProps) {
       row.parentNode.removeChild(row);
     } else {
       console.error("Row not found");
+      toast.error("row not found");
     }
   }
 
@@ -70,6 +78,17 @@ function SidebarElements({ searchValue }: TableProps) {
     } else {
       toast.error("Hata Mevcut Daha Sonra Tekrar Deneyin");
     }
+  }
+
+  function Pagination(value?: string) {
+    toast.warn(value);
+    limitedMovieData = filteredApi.slice(
+      pagination.current_page * pagination.per_page,
+      (pagination.current_page + 1) * pagination.per_page
+    );
+    console.log(limitedMovieData);
+    console.log(pagination.current_page);
+    console.log(pagination.per_page);
   }
 
   return (
@@ -235,10 +254,18 @@ function SidebarElements({ searchValue }: TableProps) {
               <button className="px-3 py-2 bg-disabled text-neutral-200 rounded-xl">
                 <GoChevronLeft />
               </button>
-              <button className="px-4 py-2 border border-blue-normal text-blue-normal rounded-xl">
+              <button
+                className="px-4 py-2 border border-blue-normal text-blue-normal rounded-xl"
+                onClick={(e) => Pagination(e.currentTarget.value)}
+                value="10"
+              >
                 1
               </button>
-              <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
+              <button
+                className="px-4 py-2 border border-neutral-400 text-black rounded-xl"
+                onClick={(e) => Pagination(e.currentTarget.value)}
+                value="20"
+              >
                 2
               </button>
               <button className="px-4 py-2 border border-neutral-400 text-black rounded-xl">
@@ -254,7 +281,12 @@ function SidebarElements({ searchValue }: TableProps) {
             <div className="gap-2 hidden sm:flex">
               <select
                 className="border border-neutral-400 text-sm px-8 md:px-10 rounded-xl"
-                onChange={(e) => setShowed(Number(e.currentTarget.value))}
+                onChange={(e) =>
+                  setPagination((prev) => ({
+                    ...prev,
+                    per_page: +e.target.value,
+                  }))
+                }
               >
                 <option value="5">5</option>
                 <option value="10">10</option>
